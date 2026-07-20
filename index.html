@@ -80,12 +80,25 @@
 
   ::selection{background:var(--vermelho);color:var(--branco)}
 
+  /* Scrollbar escura com detalhe vermelho */
+  ::-webkit-scrollbar{width:10px}
+  ::-webkit-scrollbar-track{background:var(--preto)}
+  ::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:999px;border:2px solid var(--preto)}
+  ::-webkit-scrollbar-thumb:hover{background:var(--vermelho)}
+
+  /* Barra de progresso de leitura */
+  .progresso{
+    position:fixed;top:0;left:0;height:3px;width:0;z-index:1200;
+    background:linear-gradient(90deg, var(--vermelho), #ff5a5a);
+    pointer-events:none;
+  }
+
   .container{width:min(1140px,90%);margin:0 auto}
 
   /* ========== LOGO ========== */
   .logo{display:inline-flex;align-items:center;text-decoration:none}
-  .logo img{height:46px;width:auto;display:block}
-  footer .logo img{height:56px}
+  .logo img{height:60px;width:auto;display:block}
+  footer .logo img{height:73px}
 
   /* ========== HEADER ========== */
   header{
@@ -147,6 +160,13 @@
       radial-gradient(ellipse 60% 45% at 20% 85%, rgba(166,166,166,.05), transparent 60%);
     pointer-events:none;
   }
+  .hero .marca-fundo{
+    position:absolute;top:44%;right:-4%;transform:translateY(-50%);
+    font-family:var(--fonte-titulo);font-weight:900;font-style:italic;
+    font-size:clamp(6rem,17vw,15rem);line-height:1;letter-spacing:-.02em;
+    color:transparent;-webkit-text-stroke:1px rgba(166,166,166,.10);
+    pointer-events:none;user-select:none;white-space:nowrap;
+  }
   .hero-conteudo{position:relative;max-width:780px}
   .hero .tag{
     display:inline-flex;align-items:center;gap:.6rem;
@@ -179,7 +199,8 @@
     display:inline-flex;align-items:center;gap:.55rem;
     border:1px solid var(--borda);border-radius:999px;
     padding:.55rem 1.1rem;font-size:.8rem;color:var(--cinza);
-    background:rgba(255,255,255,.02);text-decoration:none;
+    background:rgba(255,255,255,.03);text-decoration:none;
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
     transition:border-color var(--transicao), background var(--transicao);
   }
   a.selo:hover{border-color:rgba(255,196,0,.5);background:rgba(255,255,255,.05)}
@@ -247,6 +268,12 @@
     font-weight:500;margin-bottom:1rem;
   }
   .secao-cabecalho .rotulo::before, .rotulo-solto::before{content:"";width:28px;height:1px;background:var(--vermelho)}
+  .secao-cabecalho h2, .sobre-texto h2, .orcamento-texto h2, .cta-final h2{
+    background:linear-gradient(180deg, var(--branco) 55%, var(--cinza));
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
+  .sobre-texto h2 em, .orcamento-texto h2 em, .cta-final h2 em{-webkit-text-fill-color:var(--vermelho)}
   .secao-cabecalho h2{
     font-family:var(--fonte-titulo);font-weight:800;
     font-size:clamp(1.7rem,4vw,2.6rem);line-height:1.15;letter-spacing:-.01em;
@@ -395,9 +422,7 @@
   .formulario .btn{width:100%;margin-top:1.2rem;padding:1rem;font-size:.9rem}
   .formulario .garantia{
     text-align:center;font-size:.75rem;color:var(--cinza);margin-top:.9rem;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;
   }
-  .formulario .garantia svg{width:18px;height:18px;stroke:var(--verde)}
 
   /* ========== SOBRE ========== */
   .sobre-grade{display:grid;grid-template-columns:1.05fr .95fr;gap:4rem;align-items:center}
@@ -613,6 +638,8 @@
 </head>
 <body>
 
+<span class="progresso" id="barraProgresso" aria-hidden="true"></span>
+
 <!-- ================= HEADER ================= -->
 <header id="cabecalho">
   <div class="container header-inner">
@@ -641,6 +668,7 @@
 
 <!-- ================= HERO ================= -->
 <section class="hero" id="inicio">
+  <span class="marca-fundo" aria-hidden="true">JOHNNY</span>
   <div class="container">
     <div class="hero-conteudo">
       <span class="tag revelar">Despachante em Petrópolis · RJ</span>
@@ -1148,7 +1176,6 @@
         </button>
         <p class="garantia">
           <span>Seus dados vão direto pro nosso WhatsApp, sem cadastro.</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </p>
       </form>
     </div>
@@ -1189,13 +1216,13 @@
     </div>
     <div class="videos-grade">
       <div class="video-card revelar">
-        <video src="videos/video-1.mp4" controls preload="metadata" playsinline></video>
+        <video src="videos/video-1.mp4" poster="img/capa-video-1.jpg" controls preload="metadata" playsinline></video>
       </div>
       <div class="video-card revelar revelar-atraso-1">
-        <video src="videos/video-2.mp4" controls preload="metadata" playsinline></video>
+        <video src="videos/video-2.mp4" poster="img/capa-video-2.jpg" controls preload="metadata" playsinline></video>
       </div>
       <div class="video-card revelar revelar-atraso-2">
-        <video src="videos/video-3.mp4" controls preload="metadata" playsinline></video>
+        <video src="videos/video-3.mp4" poster="img/capa-video-3.jpg" controls preload="metadata" playsinline></video>
       </div>
     </div>
     <div class="videos-cta revelar">
@@ -1373,10 +1400,13 @@
 </a>
 
 <script>
-  // Header com blur ao rolar
+  // Header com blur ao rolar + barra de progresso
   var cabecalho = document.getElementById('cabecalho');
+  var barraProgresso = document.getElementById('barraProgresso');
   var aoRolar = function(){
     cabecalho.classList.toggle('rolou', window.scrollY > 30);
+    var alturaRolavel = document.documentElement.scrollHeight - window.innerHeight;
+    barraProgresso.style.width = (alturaRolavel > 0 ? (window.scrollY / alturaRolavel) * 100 : 0) + '%';
   };
   window.addEventListener('scroll', aoRolar, {passive:true});
   aoRolar();
