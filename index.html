@@ -86,13 +86,6 @@
   ::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:999px;border:2px solid var(--preto)}
   ::-webkit-scrollbar-thumb:hover{background:var(--vermelho)}
 
-  /* Barra de progresso de leitura */
-  .progresso{
-    position:fixed;top:0;left:0;height:3px;width:0;z-index:1200;
-    background:linear-gradient(90deg, var(--vermelho), #ff5a5a);
-    pointer-events:none;
-  }
-
   .container{width:min(1140px,90%);margin:0 auto}
 
   /* ========== LOGO ========== */
@@ -159,13 +152,6 @@
       radial-gradient(ellipse 70% 50% at 75% 20%, rgba(255,0,0,.08), transparent 60%),
       radial-gradient(ellipse 60% 45% at 20% 85%, rgba(166,166,166,.05), transparent 60%);
     pointer-events:none;
-  }
-  .hero .marca-fundo{
-    position:absolute;top:44%;right:-4%;transform:translateY(-50%);
-    font-family:var(--fonte-titulo);font-weight:900;font-style:italic;
-    font-size:clamp(6rem,17vw,15rem);line-height:1;letter-spacing:-.02em;
-    color:transparent;-webkit-text-stroke:1px rgba(166,166,166,.10);
-    pointer-events:none;user-select:none;white-space:nowrap;
   }
   .hero-conteudo{position:relative;max-width:780px}
   .hero .tag{
@@ -268,12 +254,6 @@
     font-weight:500;margin-bottom:1rem;
   }
   .secao-cabecalho .rotulo::before, .rotulo-solto::before{content:"";width:28px;height:1px;background:var(--vermelho)}
-  .secao-cabecalho h2, .sobre-texto h2, .orcamento-texto h2, .cta-final h2{
-    background:linear-gradient(180deg, var(--branco) 55%, var(--cinza));
-    -webkit-background-clip:text;background-clip:text;
-    -webkit-text-fill-color:transparent;
-  }
-  .sobre-texto h2 em, .orcamento-texto h2 em, .cta-final h2 em{-webkit-text-fill-color:var(--vermelho)}
   .secao-cabecalho h2{
     font-family:var(--fonte-titulo);font-weight:800;
     font-size:clamp(1.7rem,4vw,2.6rem);line-height:1.15;letter-spacing:-.01em;
@@ -638,8 +618,6 @@
 </head>
 <body>
 
-<span class="progresso" id="barraProgresso" aria-hidden="true"></span>
-
 <!-- ================= HEADER ================= -->
 <header id="cabecalho">
   <div class="container header-inner">
@@ -668,7 +646,6 @@
 
 <!-- ================= HERO ================= -->
 <section class="hero" id="inicio">
-  <span class="marca-fundo" aria-hidden="true">JOHNNY</span>
   <div class="container">
     <div class="hero-conteudo">
       <span class="tag revelar">Despachante em Petrópolis · RJ</span>
@@ -1400,13 +1377,10 @@
 </a>
 
 <script>
-  // Header com blur ao rolar + barra de progresso
+  // Header com blur ao rolar
   var cabecalho = document.getElementById('cabecalho');
-  var barraProgresso = document.getElementById('barraProgresso');
   var aoRolar = function(){
     cabecalho.classList.toggle('rolou', window.scrollY > 30);
-    var alturaRolavel = document.documentElement.scrollHeight - window.innerHeight;
-    barraProgresso.style.width = (alturaRolavel > 0 ? (window.scrollY / alturaRolavel) * 100 : 0) + '%';
   };
   window.addEventListener('scroll', aoRolar, {passive:true});
   aoRolar();
